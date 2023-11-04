@@ -1,0 +1,30 @@
+name: CreateImage
+
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: setup .NET Core
+        uses: actions/setup-dotnet@v3.0.3
+        with:
+          dotnet-version: '7.x.x'
+
+      - name: login to Docker Hub
+        run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u koryphaee --password-stdin
+        
+      - name: build and push container
+        id: docker_build
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          file: Server/Dockerfile
+          tags: koryphaee/nuget-cache:latest

@@ -1,0 +1,17 @@
+{
+    "$schema": "https://json.schemastore.org/launchsettings.json",
+    "profiles": {
+        "Kestrel": {
+            "commandName": "Project",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "Urls": "https://localhost:5000",
+                "PublicUrl": "https://localhost:5000",
+                "CacheDirectory": "packages",
+                "UpstreamHost": "https://api.nuget.org"
+
+            },
+            "dotnetRunMessages": true
+        }
+    }
+}

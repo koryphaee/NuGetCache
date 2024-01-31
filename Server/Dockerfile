@@ -13,9 +13,4 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 EXPOSE 80
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY Server/launch.sh .
-RUN chmod a+rx launch.sh
-ENV UpstreamHost="https://api.nuget.org"
-ENV CacheDirectory="/mnt/cache/"
-ENV Urls="http://+:80",
-ENTRYPOINT /app/launch.sh
+ENTRYPOINT exec setpriv --reuid=${PUID} --regid=${PGID} --clear-groups dotnet Server.dll UpstreamHost=https://api.nuget.org CacheDirectory=/mnt/cache/ Urls=http://+:80 PublicUrl=$PublicUrl

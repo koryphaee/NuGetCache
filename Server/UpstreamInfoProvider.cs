@@ -17,7 +17,7 @@ public class UpstreamInfoProvider
         ResourceDto resource = manifest.Resources.Single(r => r.Type == "PackageBaseAddress/3.0.0");
         string originalUrl = resource.Id.TrimEnd('/');
 
-        // replace the address to the package service with our own URL so we can intercept it
+        // replace the address to the package service with our own URL, so we can intercept it
         var uriBuilder = new UriBuilder(resource.Id);
         var ownUri = new Uri(options.PublicUrl);
         uriBuilder.Scheme = ownUri.Scheme;
